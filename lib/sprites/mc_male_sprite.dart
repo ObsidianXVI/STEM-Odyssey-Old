@@ -1,17 +1,23 @@
 part of stem_odyssey;
 
 class MCMaleSprite extends SpriteAnimationComponent with CollisionCallbacks {
+  final void Function(BuildingSprite) onTouchBuildingSprite;
   MCMaleSprite({
     required super.animation,
-  }) : super(size: Vector2.all(56));
+    required this.onTouchBuildingSprite,
+  }) : super(
+          size: Vector2.all(56),
+          //position: Vector2(tileSize * 10, tileSize * 10),
+        );
 
   @override
-  void onCollision(Set<Vector2> points, PositionComponent other) {
-    super.onCollision(points, other);
+  void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
+    super.onCollision(intersectionPoints, other);
     if (other is ScreenHitbox) {
       //...
     } else if (other is BuildingSprite) {
-      //...
+      onTouchBuildingSprite(other);
+      position = intersectionPoints.first;
     }
   }
 

@@ -1,7 +1,19 @@
+library stem_odyssey;
+
+import 'package:flame/collisions.dart';
 import 'package:flame/game.dart';
-import 'package:flame/widgets.dart';
+import 'package:flame/input.dart';
 import 'package:flutter/material.dart';
-import './sprites/sprites.dart';
+import 'package:flutter/services.dart';
+import 'package:flame/components.dart';
+
+part './sprites/building.dart';
+part './sprites/mc_male_sprite.dart';
+part './sprites/ground.dart';
+
+part './map/mapgen.dart';
+
+const double tileSize = 48;
 
 void main() {
   final Game game = STEMOdyssey(
@@ -38,24 +50,32 @@ void main() {
   );
 }
 
-class STEMOdyssey extends FlameGame {
+class STEMOdyssey extends FlameGame with HasKeyboardHandlerComponents {
   STEMOdyssey({
     super.children,
     super.camera,
   });
+  bool animationIsPlaying = true;
 
   @override
   Future<void> onLoad() async {
-    await addAll([
-      BuildingSprite(),
-      MCMaleSprite(
-        animation: SpriteAnimation.spriteList(
-          await Future.wait([1, 2].map(
-            (i) => Sprite.load('mc_male_$i.png'),
-          )),
-          stepTime: 0.2,
-        ),
+    final MCMaleSprite mcMaleSprite = MCMaleSprite(
+      animation: SpriteAnimation.spriteList(
+        await Future.wait([1, 2].map(
+          (i) => Sprite.load('mc_male_$i.png'),
+        )),
+        stepTime: 0.15,
       ),
+    );
+
+    final GroundSprite groundSprite = GroundSprite();
+
+    mcMaleSprite.playing = animationIsPlaying;
+    await addAll([
+      ...MapGen.generateMap(50, 50),
+      BuildingSprite(),
+      mcMaleSprite,
     ]);
+    camera.followComponent(mcMaleSprite);
   }
 }

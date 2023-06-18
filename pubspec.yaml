@@ -60,6 +60,12 @@ flutter:
     - assets/images/test_building.png
     - assets/images/mc_male_1.png
     - assets/images/mc_male_2.png
+    - assets/images/ground_tile_1.png
+    - assets/images/ground_tile_2.png
+    - assets/images/ground_tile_3.png
+    - assets/images/ground_tile_4.png
+    - assets/images/ground_tile_5.png
+    - assets/images/ground_tile_6.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:

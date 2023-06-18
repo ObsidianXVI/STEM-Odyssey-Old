@@ -1,7 +1,7 @@
-part of odyssey.sprites;
+part of stem_odyssey;
 
 class BuildingSprite extends SpriteComponent {
-  BuildingSprite() : super(size: Vector2.all(256));
+  BuildingSprite() : super(size: Vector2.all(tileSize * 5));
 
   @override
   Future<void> onLoad() async {
@@ -12,13 +12,4 @@ class BuildingSprite extends SpriteComponent {
 enum MCMaleSpriteStatus {
   idle,
   running,
-}
-
-class MCMaleSprite extends SpriteAnimationComponent {
-  MCMaleSprite({
-    required super.animation,
-  }) : super(size: Vector2.all(56));
-
-  @override
-  Future<void> onLoad() async {}
 }

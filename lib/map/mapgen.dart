@@ -18,6 +18,29 @@ class MapGen {
         );
       }
     }
+    spriteComponents.add(
+      BuildingSprite(),
+    );
+    return spriteComponents;
+  }
+
+  static List<SpriteComponent> generateBuildingMap() {
+    final List<SpriteComponent> spriteComponents = [];
+    final GroundSprite sprite1 = GroundSprite.tile();
+    final NotifyingVector2 origin = sprite1.position;
+    spriteComponents.add(sprite1);
+    for (int col = 0; col < 10; col++) {
+      for (int row = 0; row < 15; row++) {
+        spriteComponents.add(
+          GroundSprite(
+            position: Vector2(
+              tileSize * col,
+              tileSize * row,
+            ),
+          ),
+        );
+      }
+    }
     return spriteComponents;
   }
 }
